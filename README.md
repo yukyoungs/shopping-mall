@@ -8,7 +8,7 @@ Node.js와 Express를 활용한 쇼핑몰 웹사이트입니다. 사용자 인�
 - **프론트엔드**: HTML, CSS, JavaScript
 - **백엔드**: Node.js, Express
 - **데이터베이스**: MYSQL
-- **배포**: localhost, ex)AWS S3
+- **배포**: localhost
 
 ---
 
