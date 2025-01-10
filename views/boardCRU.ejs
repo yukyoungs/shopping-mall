@@ -1,0 +1,95 @@
+<div class="container">   
+    <% if (title === 'create') { %>
+    <h2><%-boardtype[0].title%> 작성</h2>
+    <form action="/board/create_process" method="post">
+        <input type="hidden" name="type_id" value="<%=boardtype[0].type_id%>">
+        <input type="hidden" name="loginid" value="<%=loginId%>">
+        <div class="mb-3">
+            <label class="form-label" for="id">제목</label> 
+            <input class="form-control" type="text" name="title" style="width:300px;"
+            <% if (cls === 'CST' && boardtype[0].write_YN === 'N') { %> disabled <% } %> required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id">작성자</label> 
+            <input class="form-control" type="text" name="title" value="<%=who%>" style="width:300px;" disabled/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id">내용</label> 
+            <textarea class="form-control" name="content" style="width:800px; height:200px;" 
+            <% if (cls === 'CST' && boardtype[0].write_YN === 'N') { %> disabled <% } %> required></textarea>
+        </div>
+        <% if (cls !== 'MNG') { %>
+        <div class="mb-3">
+            <label class="form-label" for="id">갱신삭제시 비밀번호</label> 
+            <input class="form-control" type="text" name="password" style="width:300px;"
+            <% if (cls === 'CST' && boardtype[0].write_YN === 'N') { %> disabled <% } %> required />
+        </div>
+        <% } %>
+        <button class="btn btn-outline-primary btn-sm" type="submit"
+        <% if (cls === 'CST' && boardtype[0].write_YN === 'N') { %> disabled <% } %>>생성</button>
+    </form>
+
+    <% } else if (title === 'detail') { %>
+    <input type="hidden" name="type_id" value="<%=boardjoin[0].type_id%>">
+    <input type="hidden" name="loginid" value="<%=boardjoin[0].loginid%>">
+    <div class="mb-3">
+        <label class="form-label" for="id">제목</label> 
+        <input class="form-control" type="text" name="title" style="width:300px;" value="<%=boardjoin[0].title%>" disabled/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="id">작성자</label> 
+        <input class="form-control" type="text" name="title" value="<%=boardjoin[0].name%>" style="width:300px;" disabled/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="id">작성일</label> 
+        <input class="form-control" type="text" name="date" value="<%=boardjoin[0].date%>" style="width:300px;" disabled/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="id">내용</label> 
+        <textarea class="form-control" name="content" style="width:800px; height:200px;" disabled><%=boardjoin[0].content%></textarea>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/board/view/<%=boardjoin[0].type_id%>/<%=pNum%>">
+            <button type="button" class="btn btn-info me-md-2">목록</button>
+        </a>
+        <% if (boardjoin[0].loginid === loginId || cls === 'MNG') { %>
+            <a href="/board/update/<%=boardjoin[0].board_id%>/<%=boardjoin[0].type_id%>/<%=pNum%>">
+            <button type="button" class="btn btn-info me-md-2">수정</button>
+        </a>
+        <a href="/board/delete/<%=boardjoin[0].board_id%>/<%=boardjoin[0].type_id%>/<%=pNum%>" 
+        onclick="if(confirm('정말로 삭제하시겠습니까?') === false) return false">
+            <button type="button" class="btn btn-info me-md-2">삭제</button>
+        </a>
+        <% } %>
+    </div>
+
+    <% } else if (title === 'update') { %>
+    <h2><%-boardtype[0].title%> 수정</h2>
+    <form action="/board/update_process" method="post">
+        <input type="hidden" name="pNum" value="<%=pNum%>">
+        <input type="hidden" name="type_id" value="<%=boardjoin[0].type_id%>">
+        <input type="hidden" name="board_id" value="<%=boardjoin[0].board_id%>">
+        <input type="hidden" name="realPassword" value="<%=boardjoin[0].bp%>">
+        <div class="mb-3">
+            <label class="form-label" for="id">제목</label> 
+            <input class="form-control" type="text" name="title" style="width:300px;" value="<%=boardjoin[0].title%>" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id">작성자</label> 
+            <input class="form-control" type="text" name="title" value="<%=boardjoin[0].name%>" style="width:300px;" disabled/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id">내용</label> 
+            <textarea class="form-control" name="content" style="width:800px; height:200px;" required><%=boardjoin[0].content%></textarea>
+        </div>
+        <% if (cls !== 'MNG') { %>
+        <div class="mb-3">
+            <label class="form-label" for="id">갱신삭제시 비밀번호</label> 
+            <input class="form-control" type="text" name="password" style="width:300px;" required />
+        </div>
+        <% } %>
+        <button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+    </form>
+    <% } %>
+</div>

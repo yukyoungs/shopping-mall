@@ -1,0 +1,39 @@
+<div class="container">	
+    <h2>Cart 테이블 수정</h2>
+    <form action="/cartupdate/<%= cart.cart_id %>" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
+        <div class="mb-3">
+            <label for="customer">고객</label>
+            <select id="customer" name="customer">
+                <% customers.forEach(customer => { %>
+                    <option value="<%= customer.name %>" <%= customer.loginid === cart.loginid ? 'selected' : '' %>>
+                        <%= customer.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="product">상품</label>
+            <select id="product" name="product">
+                <% products.forEach(product => { %>
+                    <option value="<%= product.name %>" <%= product.mer_id === cart.mer_id ? 'selected' : '' %>>
+                        <%- product.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <div class="mb-3">
+                        <label for="date">날짜</label>
+                        <input id="date" class="form-control mt-2" type="text" name="date" value="<%= cart.date %>" style="width: 300px;" disabled />
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+        <a href="/cartview">
+            <button class="btn btn-outline-primary btn-sm" type="button">구매 목록 돌아가기</button>
+        </a>
+    </form>
+</div>

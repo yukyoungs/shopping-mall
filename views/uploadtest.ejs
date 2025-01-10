@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <title>UploadTest</title> 
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    <link rel="icon" href="data:,">
+    <style>
+        .filebox .upload-name {
+        display: inline-block;
+        height: 40px;
+        padding: 0 10px;
+        vertical-align: middle;
+        border: 1px solid #dddddd;
+        width: 30%;
+        color: #999999;
+        }
+
+        .filebox label {
+        display: inline-block;
+        padding: 10px 20px;
+        color: #fff;
+        vertical-align: middle;
+        background-color: #999999;
+        cursor: pointer;
+        height: 20px;
+        margin-left: 10px;
+        }
+        
+        .filebox .button{
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            margin : 0 0 0 11px;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .filebox input[type="file"] {
+        position: absolute;
+        width: 0;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        }
+    </style>
+</head>
+<body>
+    <%=login%>
+    <script>
+        function displayFileName(){
+            alert("here")
+            var fileName = $("#file").val();
+            alert(fileName);
+            $(".upload-name").val(fileName);
+        }
+    </script>
+    <form action="/upload_process" method="post", enctype="multipart/form-data">
+        <div class="filebox">
+            <input class="upload-name" value="" placeholder="첨부파일">
+            <label for="file">파일찾기</label> 
+            <input type="file" id="file" name="uploadFile" onchange="displayFileName()">
+            <p><input type="submit" value="upload"></p>
+        </div>
+    </form>
+</body>
+</html>
+    

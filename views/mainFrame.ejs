@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- Coding by CodingNepal | www.codingnepalweb.com -->
+<html lang="ko" dir="ltr">
+   <head>
+      <meta charset="UTF-8">
+      <title> Drop Down Sidebar Menu | CodingLab </title>
+      <link rel="stylesheet" href="/css/style.css">
+      <!-- Boxiocns CDN Link -->
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   </head>
+   <body>
+      <div class="sidebar">
+         <div class="logo-details">
+            <a href="/"><i class='bx bxl-c-plus-plus'></i></a>
+            <span class="logo_name">GCShop</span>
+         </div>
+         <ul class="nav-links">
+            <li>
+               <a href="#">
+                  <i class='bx bxs-grid-alt'></i>
+                  <span class="link_name">Dashboard</span>
+               </a>
+               <ul class="sub-menu blank">
+                  <li><a class = "link_name" href="#" >Dashboard</a></li>
+               </ul>
+            </li>
+            <li>
+               <div class="icon-link">
+                  <a href="#">
+                     <i class='bx bx-collection'></i>
+                     <span class="link_name">Category</span>
+                  </a>
+                  <i class='bx bxs-chevron-down arrow' ></i>
+               </div>
+               <ul class="sub-menu">
+                  <li><a class = "link_name" href="#" >Category</a></li>
+                  <% codes.forEach(code => { %> 
+                     <li><a href="/category/<%= code.main_id %><%= code.sub_id %>">
+                         <%= code.main_name %> : <%= code.sub_name %>
+                     </a></li>
+                 <% }) %>
+               </ul>
+            </li>
+            <li>
+               <div class="icon-link">
+                  <a href="#">
+                     <i class='bx bx-book-alt'></i>
+                     <span class="link_name">Board</span>
+                  </a>
+                  <i class='bx bxs-chevron-down arrow' ></i>
+               </div>
+               <ul class="sub-menu">
+                  <li><a class = "link_name" href="#" >Board</a></li>
+                  <% var k = 0;
+                     while(k < boardtypes.length) { %>
+                  <li><a href="/board/view/<%=boardtypes[k].type_id%>/1"><%-boardtypes[k].title%></a></li>
+                  <% k++;} %>
+               </ul>
+            </li>
+
+            <% if(cls === 'CST'){ %>
+            <li>
+               <a href="/purchase">
+                  <i class='bx bx-purchase-tag-alt' ></i>
+                  <span class="link_name">Purchase List</span>
+               </a>
+               <ul class="sub-menu blank" >
+                  <li><a class="link_name" href="#">Purchase List</a></li>
+               </ul>
+            </li>
+
+            <li>
+               <a href="/purchase/cart">
+                  <i class='bx bx-cart'></i>
+                  <span class="link_name">Cart</span>
+               </a>
+               <ul class="sub-menu blank" >
+                  <li><a class="link_name" href="#">Cart</a></li>
+               </ul>
+            </li>
+            <% } %>
+
+            <% if(cls === 'MNG'){ %>
+            <li>
+               <div class="icon-link">
+                  <a href="#">
+                     <i class='bx bx-data'></i>
+                     <span class="link_name">DB Admin</span>
+                  </a>
+                  <i class='bx bxs-chevron-down arrow' ></i>
+               </div>
+               <ul class="sub-menu">
+                  <li><a class = "link_name" href="#" >DB Admin</a></li>
+                  <li><a href="/table">Table Manage</a></li>
+                  <li><a href="/cartview">cart RUD</a></li>
+                  <li><a href="/code/view"> code CRUD </a></li>
+                  <li><a href="/product/view" >product CRUD</a></li>
+                  <li><a href="/purchaseview" >purchase RUD</a></li>
+                  <li><a href="/person/view" >person CRUD</a></li>
+                  <li><a href="/board/type/view" >board type CRUD</a></li>
+               </ul>
+            </li>
+            <% } %>
+
+            <% if(cls === 'CEO'){ %>
+            <li>
+               <a href="/anal/customer">
+                  <i class='bx bx-pie-chart-alt-2'></i>
+                  <span class="link_name">Analytic</span>
+               </a>
+               <ul class="sub-menu blank">
+                  <li><a class = "link_name" href="#" >Analytic</a></li>
+               </ul>
+            </li>
+            <% } %>
+
+
+            <li>
+               <div class="icon-link">
+                  <a href="#">
+                     <i class='bx bx-cog'></i>
+                     <span class="link_name">Setting</span>
+                  </a>
+                  <i class='bx bxs-chevron-down arrow' ></i>
+               </div>
+               <ul class="sub-menu">
+                  <li><a class = "link_name" href="#" >Setting</a></li>
+                  <li><a href="/auth/register" >회원가입</a></li>
+                  <li><a href="#" >아이디/비번 찾기</a></li>
+               </ul>
+            </li>
+
+            <li>
+               <div class="profile-details">
+                  <div class="profile-content">
+                     <img src="/image/guest.jpg" alt="profile" >
+                  </div>
+                  <div class="name-job">
+                     <div class="profile_name"><%=who%></div>
+                     <div class="job"></div>
+                  </div>
+                  
+                  <% if(login){ %>
+                     <a href = "/auth/logout_process"><i class = 'bx bx-log-out'></i></a>
+                  <% } else { %>
+                     <a href = "/auth/login"><i class='bx bx-log-in'></i></a>
+                  <% } %>
+                  
+               </div>
+            </li>
+
+         </ul>
+      </div>
+      <section class="home-section">
+         <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <span class="text">Drop Down Sidebar</span>
+         </div>
+         <div>
+            <form class="d-flex" role="search" action="/search" method="post">
+               <input class="form-control me-1" style = "width : 150px;margin-left : 50px;" type="search"
+                  placeholder="Search" aria-label="Search" name="search">
+               <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+         </div>
+         <div class="home-content2">
+            <%- include(body) %>
+         </div>
+      </section>
+
+
+      <script>
+         
+         let arrow = document.querySelectorAll(".arrow");
+         for(var i = 0;i<arrow.length ; i++){
+            arrow[i].addEventListener("click",(e)=>{
+               let arrowParent = e.target.parentElement.parentElement;
+               arrowParent.classList.toggle("showMenu");
+               
+            })
+         }
+         
+         let sidebar = document.querySelector(".sidebar");
+         let sidebarBtn = document.querySelector(".bx-menu");
+
+         
+         sidebarBtn.addEventListener("click",()=>{
+            sidebar.classList.toggle("close")
+         });
+      </script>
+   </body>
+
+   </html>

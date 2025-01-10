@@ -1,0 +1,36 @@
+<table class="table table-bordered">
+    <% if (products.length > 0) { %>
+        <% for (let i = 0; i < products.length; i++) { %>
+            <tr>
+                <td rowspan="6">
+                    <img src="/image/<%= products[i].image %>" style="width:300px;height:300px;">
+                </td>
+                <td><%- products[i].name %></td>
+            </tr>
+            <tr>
+                <td>가격 : <%= products[i].price.toLocaleString() %> 원</td>
+            </tr>
+            <tr>
+                <td>브랜드 : <%- products[i].brand %></td>
+            </tr>
+            <tr>
+                <td>공급업체 : <%- products[i].supplier %></td>
+            </tr>
+            <% if (cls === 'CST') { %>
+                <tr>
+                    <td>
+                        <a href="/purchase/detail/<%= products[i].mer_id %>">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">구매</button>
+                        </a>
+                        <form action="/purchase/cart" method="post" style="display: inline-block;">
+                            <input type="hidden" name="mer_id" value="<%= products[i].mer_id %>">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">장바구니</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        <% } %>
+    <% } else { %>
+        <p>상품이 없으니 추가하세요. </p>
+    <% } %>
+</table>

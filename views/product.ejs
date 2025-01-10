@@ -1,0 +1,54 @@
+<div class="container">    
+
+    <table class="table table-bordered" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>상품</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>브랜드</th>
+                <% if (cls === 'MNG') { %>
+                    <th colspan="2">메뉴</th>
+                <% } %>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% if (products && products.length > 0) { %>
+                <% for (var i = 0; i < products.length; i++) { %>
+                    <tr>
+                        <td>
+                            <a href="/detail/<%= products[i].mer_id %>" style="text-decoration: none;">
+                                <img src="/image/<%= products[i].image %>" style="width:100px; height:100px;">
+                            </a>
+                        </td>
+                        <td><%- products[i].name %></td>
+                        <td><%= products[i].price.toLocaleString() %> 원</td>
+                        <td><%- products[i].brand %></td>
+                        
+                        <% if (cls === 'MNG') { %>
+                            <td><a href="/product/update/<%= products[i].mer_id %>" style="text-decoration: none;">수정</a></td>
+                            <td><a href="/product/delete/<%= products[i].mer_id %>" style="text-decoration: none;" 
+                                onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="<%= cls === 'MNG' ? 6 : 4 %>">검색된 자료가 없습니다.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <% if (products && products.length === 0 && cls === 'MNG') { %>
+        <p>검색 결과가 없으니 다른 검색어를 입력해 주세요.</p>
+    <% } %>
+
+    <% if (cls === 'MNG') { %>
+        <a href="/product/create">
+            <button class="btn btn-outline-secondary btn-sm" type="button">상품 추가</button>
+        </a>
+    <% } %>
+
+</div>

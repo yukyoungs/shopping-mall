@@ -1,0 +1,30 @@
+<table class="table table-bordered border-primary table-hover" style="text-align: center;">
+    <thead class="table-primary ">
+        <th>제목</th><th>페이지당 글 수</th><th>설명</th><th>일반 사용자 쓰기</th><th>댓글</th>
+        <th colspan="2">메뉴</th>
+    </thead> 
+    <tbody>
+        <% if (boardtypes.length>0){ %>
+            <% for (var i = 0; i < boardtypes.length; i++) { %>
+                <tr><td><%- boardtypes[i].title %></td>
+                    <td><%= boardtypes[i].numPerPage %></td>
+                    <td><%- boardtypes[i].description %></td>
+                    <td><%= boardtypes[i].write_YN %></td>
+                    <td><%= boardtypes[i].re_YN %></td>
+                    <td><a href="/board/type/update/<%= boardtypes[i].type_id %>" style="text-decoration: none;">수정</a></td>
+                    <td><a href="/board/type/delete/<%= boardtypes[i].type_id %>" style="text-decoration: none;" onclick="if(confirm('정말로 삭제하시겠습니까?')==false) return false">삭제</a></td>
+                </tr>
+
+            <% } %>
+        <% } else { %>
+            <tr>
+                <td colspan="7">자료가 없습니다.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<% if (boardtypes.length === 0){ %>
+    <p>자료가 없으니 게시판 종류 추가 버튼으로 코드를 추가해 주십시오. </p>
+<% } %>
+    <a href="/board/type/create"><button class="btn btn-outline-secondary btn-sm" type="submit">게시판 종류 추가</button></a>

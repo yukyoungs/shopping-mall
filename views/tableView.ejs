@@ -1,0 +1,43 @@
+<div class="container">
+    <h2><%= tableName %> 자료 목록</h2>   
+    <table class="table table-bordered" style="text-align: center;">
+        <thead>
+            <tr>
+                <% if (columns.length > 0) { %>
+                    <% columns.forEach(column => { %>
+                        <th><%= column.columnComment || 'No comment' %></th>
+                    <% }); %>
+                <% } else { %>
+                        <td colspan="2">No columns found.</td>
+                <% } %>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length > 0) { %>
+                <% data.forEach(row => { %>
+                    <tr>
+                        <% Object.values(row).forEach(value => { %>
+                            <td><%- value %></td>
+                        <% }); %>
+                        <td>
+                            <a href="#" style="text-decoration: none;">생성</a>
+                        </td>
+                        <td>
+                            <a href="#" style="text-decoration: none;">수정</a>
+                        </td>
+                        <td>
+                            <a href="#" style="text-decoration: none;" 
+                                onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="<%= columns.length %>">No data found.</td>
+                </tr>
+            <% } %>
+                    
+        </tbody>        
+    </table>
+</div>

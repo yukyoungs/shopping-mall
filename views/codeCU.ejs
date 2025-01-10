@@ -1,0 +1,58 @@
+<div class="container">	
+	
+	<% if (editing) { %>
+        <h2>코드 수정</h2>
+		<form action="/code/update_process" method="post" >
+            <input type="hidden" name="main" value="<%= main_id %>" />
+            <input type="hidden" name="sub" value="<%= sub_id %>" />
+			<input type="hidden" name="start" value="<%= start %>" />
+
+			<div class="mb-3">
+				<label class="form-label" for="id">대분류명</label> 
+				<input class="form-control" type="text" name="main_name" style = "width:300px;" value="<%= code.main_name %>" required/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">소분류명</label> 
+				<input class="form-control" type="text" name="sub_name" style="width:300px;" value="<%= code.sub_name %>" required/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">시작일</label> 
+				<input class="form-control" type="text" name="start" id="start" style="width:300px;" disabled value="<%= start %>" required/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">종료일</label> 
+				<input class="form-control" type="text" name="end" id="end" style="width:300px;" value="<%= code.end %>" required/>
+			</div>
+			<button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+            <a href="/code/view" class="btn btn-outline-primary btn-sm">코드 목록 돌아가기</a>
+    <% } else { %>
+		<h2>코드 입력</h2>
+		<form action="/code/create_process" method="post" >
+		<div class="mb-3">
+			<label class="form-label" for="id">대분류</label> 
+			<input class="form-control" type="text" name="main_id"  style = "width:300px;" required/>
+		</div>
+        <div class="mb-3">
+			<label class="form-label" for="id">대분류명</label> 
+			<input class="form-control" type="text" name="main_name" style = "width:300px;" required/>
+		</div>
+        <div class="mb-3">
+			<label class="form-label" for="id">소분류</label> 
+			<input class="form-control" type="text" name="sub_id" style="width:300px;" required/>
+		</div>
+        <div class="mb-3">
+			<label class="form-label" for="id">소분류명</label> 
+			<input class="form-control" type="text" name="sub_name" style="width:300px;" required/>
+		</div>
+        <div class="mb-3">
+			<label class="form-label" for="id">시작일</label> 
+			<input class="form-control" type="text" name="start" id="start" style="width:300px;" required/>
+		</div>
+        <div class="mb-3">
+			<label class="form-label" for="id">종료일</label> 
+			<input class="form-control" type="text" name="end" id="end" style="width:300px;" required/>
+		</div>
+        <button class="btn btn-outline-primary btn-sm" type="submit">입력</button>
+		<a href="/code/view" class="btn btn-outline-primary btn-sm">코드 목록 돌아가기</a>
+		<% } %>
+</div>

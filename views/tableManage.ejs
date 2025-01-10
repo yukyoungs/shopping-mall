@@ -1,0 +1,28 @@
+<div class="container">
+    <table class="table table-bordered" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>테이블 명</th>
+                <th>테이블 설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (tables.length > 0) { %>
+                <% tables.forEach(table => { %>
+                    <tr>
+                        <td>
+                            <a href="/table/view/<%= table.tableName %>" style="text-decoration: none;">
+                                <%= table.tableName %>
+                            </a>
+                        </td>
+                        <td><%= table.tableComment %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="2">데이터가 없습니다.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

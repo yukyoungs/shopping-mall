@@ -1,0 +1,37 @@
+<div class="container">    
+    <table class="table table-bordered" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>Login ID</th>
+                <th>고객명</th>
+                <th>상품 ID</th>
+                <th>상품명</th>
+                <th>일자</th>
+                <th colspan="2">관리</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% if (carts.length > 0) { %>
+                <% carts.forEach(cart => { %>
+                    <tr>
+                        <td><%= cart.loginid %></td>
+                        <td><%= cart.customer_name %></td>
+                        <td><%= cart.mer_id %></td>
+                        <td><%- cart.product_name %></td>
+                        <td><%= cart.date %></td>
+                        <td><a href="/cartupdate/<%= cart.cart_id %>" style="text-decoration: none;">수정</a></td>
+                        <td>
+                            <a href="/cartdelete/<%= cart.cart_id %>" style="text-decoration: none;" 
+                               onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="7">자료가 없습니다. 추가하세요.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

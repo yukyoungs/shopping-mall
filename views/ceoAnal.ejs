@@ -1,0 +1,42 @@
+<div class="container">	
+	<h2>지역별 고객 분포 </h2>
+
+	<% var i = 0;
+	   while(i < percentage.length) { %>
+		<input type = "hidden" value = "<%=percentage[i].rate%>" class = "data" name = "rate">
+		<input type = "hidden" value = "<%=percentage[i].address%>" class = "address" name = "rate">
+	<% i += 1 } %> 
+	<canvas id="graph" width="500" height="500" style="background-color: aliceblue"></canvas>
+
+	<script>
+		let data = document.getElementsByClassName("data");
+		let address = document.getElementsByClassName("address");
+		let colors = ["blue", "magenta","green", "yellow",  "red", "black", "white"];
+		let canvas = document.getElementById("graph");
+		let context = canvas.getContext("2d");
+
+		for(let i = 0; i < data.length; i++){
+			context.font = "20px malgun gothic";
+			context.fillStyle = colors[i];
+			context.fillText(address[i].value + " | " + data[i].value + "%", 20, 20 + 20 * i);                    
+        }
+
+
+		let angle = 0;
+
+
+		for(let i = 0; i < data.length; i++){
+			context.fillStyle = colors[i];
+			context.beginPath();
+			context.moveTo(250, 250);
+			context.arc(250, 250, 210, angle, angle + (Math.PI * 2 * (parseFloat(data[i].value)/100)));
+			context.lineTo(250, 250);
+			context.fill();
+			
+			angle += Math.PI * 2 * (parseFloat(data[i].value)/100);
+			
+		}	
+	</script>
+
+</div>
+

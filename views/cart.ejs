@@ -1,0 +1,97 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>구매 선택</th>
+            <th>상품</th>
+            <th>상품명</th>
+            <th>단가</th>
+            <th>담은 날</th>
+            <th>수량</th>
+        </tr>
+    </thead>
+    
+<tbody>
+    <% if (carts.length > 0) { %>
+        <% for (let i = 0; i < carts.length; i++) { %>
+            <tr>
+                <td>
+                    <input type="checkbox" name="cart_ids" value="<%= carts[i].cart_id %>">
+                </td>
+                <td><img src="/image/<%= carts[i].image %>" style="width: 100px; height: 100px;"></td>
+                <td><%- carts[i].name %></td>
+                <td><%= carts[i].price.toLocaleString() %> 원</td>
+                <td><%- carts[i].date %></td>
+                <td>
+                    <input type="number" name="qty_<%= carts[i].cart_id %>" value="1" min="1">
+                </td>
+            </tr>
+        <% } %>
+    <% } else { %>
+            <p>장바구니에 담긴 상품이 없습니다.</p>
+    <% } %>
+</tbody>
+</table>
+<div>
+    <form action="/purchase/checkout" method="post" id="checkoutForm" style="display: inline-block">
+        <input type="hidden" id="checkout_ids" name="checkout_ids" value="">
+        <input type="hidden" id="quantities" name="quantities" value="">
+        <button class="btn btn-outline-primary btn-sm" type="submit" id="checkoutButton">결제</button>
+    </form>
+    <form action="/purchase/cart/delete" method="post" id="deleteForm" style="display: inline-block">
+        <input type="hidden" id="selected_ids" name="selected_ids" value="">
+        <button class="btn btn-outline-primary btn-sm" type="submit" id="deleteButton">삭제</button>
+    </form>
+    <a href="/" ><button class="btn btn-outline-primary btn-sm" type="button">상품 목록 돌아가기</button></a>
+</div>
+
+<script>
+    // 결제 버튼 클릭 시 선택된 항목과 수량 전달
+    document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+        const selectedIds = Array.from(document.querySelectorAll('input[name="cart_ids"]:checked'))
+            .map(input => input.value);
+
+        if (selectedIds.length === 0) {
+            event.preventDefault(); // 기본 동작 막기
+            alert("구매할 상품을 선택해주세요.");
+            return;
+        }
+
+        // 각 선택된 항목의 수량 가져오기
+        const quantities = selectedIds.map(id => {
+            const qtyInput = document.querySelector(`input[name="qty_${id}"]`);
+            return qtyInput ? qtyInput.value : 1; // 기본값 1
+        });
+
+        document.getElementById('checkout_ids').value = selectedIds.join(',');
+        document.getElementById('quantities').value = quantities.join(',');
+    });
+
+    // 삭제 버튼 클릭 시 선택된 항목 전달 및 확인 메시지 표시
+    document.getElementById('deleteForm').addEventListener('submit', function (event) {
+        const selectedIds = Array.from(document.querySelectorAll('input[name="cart_ids"]:checked'))
+            .map(input => input.value);
+
+        if (selectedIds.length === 0) {
+            event.preventDefault(); // 기본 동작 막기
+            alert("삭제할 상품을 선택해주세요.");
+            return;
+        }
+
+        // 확인 메시지 표시
+        const confirmation = confirm("정말로 삭제하시겠습니까?");
+        if (!confirmation) {
+            event.preventDefault(); // 사용자가 취소하면 기본 동작 중지
+            return;
+        }
+
+        document.getElementById('selected_ids').value = selectedIds.join(',');
+    });
+</script>
+
+
+<style>
+    .table td, .table th {
+        text-align: center; /* 가로 중앙 정렬 */
+        vertical-align: middle; /* 세로 중앙 정렬 */
+    }
+</style>

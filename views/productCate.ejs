@@ -1,0 +1,38 @@
+<table class="table table-bordered " style="text-align: center;">
+    <thead class="table-primary ">
+        <th>상품</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>브랜드</th>
+        <% if(cls === "MNG") { %>
+        <th colspan="2"></th>  
+        <% } %>
+    </thead> 
+
+    <% if (products.length > 0) { %>
+        <% for (let i = 0; i < products.length; i++) { %>
+            <!-- main_id와 sub_id에 따라 해당 항목만 표시 -->
+            <% if (products[i].main_id === main_id && products[i].sub_id === sub_id) { %>
+                <tr>
+                    <td><a href="/detail/<%= products[i].mer_id %>" style="text-decoration: none;"><img src="/image/<%= products[i].image %>" style="width:100px;height:100px;"></a></td>
+                    <td><%= products[i].name %></td>
+                    <td><%= products[i].price.toLocaleString() %> 원</td>
+                    <td><%= products[i].brand %></td>
+
+                    <% if(cls === "MNG") { %>
+                    <td><a href="/product/update/<%= products[i].mer_id %>" style="text-decoration: none;">수정</a></td>
+                    <td><a href="/product/delete/<%= products[i].mer_id %>" 
+                        onclick="return confirm('정말로 삭제하시겠습니까?');"
+                        style="text-decoration: none;">삭제</a></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        <% } %>
+    <% } else { %>
+        <p>자료가 없으니 상품 추가 버튼으로 코드를 추가해 주십시오. </p>
+    <% } %>
+</table>
+
+<% if(cls === "MNG") { %>
+    <a href="/product/create"><button class="btn btn-outline-secondary btn-sm" type="submit">상품 추가</button></a>  
+<% } %>

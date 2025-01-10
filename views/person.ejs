@@ -1,0 +1,41 @@
+<table class="table table-bordered border-primary table-hover" style="text-align: center;">
+  <thead class="table-primary ">
+    <th>ID</th><th>PW</th><th>이름</th><th>주소</th><th>전화번호</th><th>생일</th><th>클래스</th><th>등급</th>
+    <th colspan="2" >메뉴</th>
+  </thead>
+  </tbody>
+    <% if (persons.length > 0) { %>
+      <% for (var i = 0; i < persons.length; i++) { %>
+        <tr><td><%= persons[i].loginid %></td>
+            <td><%= persons[i].password %></td>
+            <td><%= persons[i].name %></td>
+            <td><%- persons[i].address %></td>
+            <td><%= persons[i].tel %></td>
+            <td><%= persons[i].birth %></td>
+            <td>
+              <% if (persons[i].class === 'CST') { %>
+                  CST(고객)
+              <% } else if (persons[i].class === 'MNG') { %>
+                  MNG(관리자)
+              <% } else if (persons[i].class === 'CEO') { %>
+                  CEO(경영자)
+              <% } %>
+            </td>
+            <td><%= persons[i].grade %></td>
+            <td><a href="/person/update/<%= persons[i].loginid %>" style="text-decoration: none;">수정</a></td>
+            <td><a href="/person/delete/<%= persons[i].loginid %>" onclick='if(confirm("정말로 삭제하시겠습니까?")==false){return false}' style="text-decoration: none;">삭제</a></td>
+        </tr>
+      <% } %>
+    <% } else { %>
+      <tr>
+        <td colspan="10">자료가 없습니다.</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<% if (persons.length === 0) { %>
+  <p>자료가 없으니 고객 추가 버튼으로 고객을 추가해 주십시오.</p>
+<% } %>
+
+<a href="/person/create"><button class="btn btn-outline-secondary btn-sm" type="submit">고객 추가</button></a>  

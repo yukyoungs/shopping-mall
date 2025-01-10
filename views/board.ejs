@@ -1,0 +1,40 @@
+<h1><%- boardTypeTitle %></h1>
+
+<table class="table table-bordered border-primary">
+    <thead><td>작성자</td><td>제목</td><td>날짜</td></thead> 
+
+    <% if (boards.length > 0) { %>
+        <% for (var i = 0; i < boards.length; i++) { %>
+            <tr>
+                <td><%= boards[i].name %></td>
+                <td><a href="/board/detail/<%= boards[i].board_id %>/<%= pNum %>" style="text-decoration: none;"><%= boards[i].title %></a></td>
+                <td><%= boards[i].date %></td>
+            </tr>
+        <% } %>
+    <% } else { %>
+        <tr>
+            <td colspan="3">게시물이 없습니다.</td>
+        </tr>
+    <% } %>
+</table>
+
+<% if (cls !== 'CEO' && login) { %>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/board/create/<%= boardTypeId %>">
+            <button type="button" class="btn btn-info me-md-2">글쓰기</button>
+        </a>
+    </div>
+<% } %>
+
+    
+<div>
+    <% var j = 1; 
+    while (j <= totalPages) {
+        if (j == pNum) { %>
+            <span style="font-weight: bold;"><%= j %></span> &nbsp;&nbsp;
+        <% } else { %>
+            <span><a href="/board/view/<%= boardTypeId %>/<%= j %>"><%= j %></a></span> &nbsp;&nbsp;
+        <% }
+        j++;
+    } %>
+</div>

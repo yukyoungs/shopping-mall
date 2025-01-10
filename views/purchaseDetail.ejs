@@ -1,0 +1,38 @@
+<table class="table table-bordered">
+    <% if (products.length > 0) { %>
+        <% products.forEach((product, i) => { %>
+            <form method="post">
+                <tr>
+                    <td rowspan="5">
+                        <img src="/image/<%= product.image %>" style="width:300px;height:300px;">
+                    </td>
+                    <td><%- product.name %></td>
+                </tr>
+                <tr>
+                    <td>가격: <%= product.price.toLocaleString() %> 원</td>
+                </tr>
+                <tr>
+                    <td>브랜드: <%- product.brand %></td>
+                </tr>
+                <tr>
+                    <td>수량: <input type="number" name="qty"></td>
+                </tr>
+
+                <input type="hidden" name="loginid" value="<%= loginId %>">
+                <input type="hidden" name="mer_id" value="<%= product.mer_id %>">
+                <input type="hidden" name="price" value="<%= product.price %>">
+
+                <tr>
+                    <td>
+                        <button class="btn btn-outline-primary btn-sm" formaction="/purchase" type="submit">결재</button>
+                        <button class="btn btn-outline-primary btn-sm" formaction="/purchase/cart" type="submit">장바구니</button>
+                    </td>
+                </tr>
+            </form>
+        <% }); %>
+    <% } else { %>
+        <tr>
+                <p>자료가 없습니다.</p>
+        </tr>
+    <% } %>
+</table>

@@ -1,0 +1,44 @@
+<div class="container">    
+    <table class="table table-bordered" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>상품</th>
+                <th>상품명</th>
+                <th>단가</th>
+                <th>구매량</th>
+                <th>총금액</th>
+                <th>구매일</th>
+                <th>취소여부</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% if (purchases && purchases.length > 0) { %>
+                <% for (var i = 0; i < purchases.length; i++) { %>
+                    <tr>
+                        <td><a href="/image/<%= purchases[i].image %>" style="text-decoration: none;">
+                            <img src="/image/<%= purchases[i].image %>" style="width:100px; height:100px;"></a></td>
+                        <td style="vertical-align: middle;"><%- purchases[i].productName %></td>
+                        <td style="vertical-align: middle;"><%= purchases[i].price.toLocaleString() %> 원</td>
+                        <td style="vertical-align: middle;"><%- purchases[i].qty %></td>
+                        <td style="vertical-align: middle;"><%- purchases[i].total.toLocaleString() %> 원</td>
+                        <td style="vertical-align: middle;"><%- purchases[i].date %></td>
+                        <td style="vertical-align: middle;">
+                            <% if (purchases[i].cancel === 'Y') { %>
+                                취소된 상품
+                            <% } else { %>
+                                <form method="post" action="/purchase/cancel/<%= purchases[i].purchase_id %>" style="display: inline;">
+                                    <button type="submit" 
+                                            style="background: none; color: #5D9CEC; border: none; cursor: pointer;"
+                                            onclick="return confirm('정말로 취소하시겠습니까?')">구매취소</button>
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <p>구매 내역이 없습니다. 구매 버튼을 눌러 상품을 구매해주세요.</p>
+            <% } %>
+        </tbody>        
+    </table>
+</div>

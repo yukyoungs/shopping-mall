@@ -1,0 +1,85 @@
+<div class="container">
+	<% if (register === false)	{ %>
+		<h2><%= editing ? '관리자 기능 : 회원 정보 수정' : '관리자 기능 : 회원생성' %></h2>
+		<form action="<%= editing ? '/person/update_process' : '/person/create_process' %>" method="post">
+    <% if (editing) { %>
+        <input type="hidden" name="loginid" value="<%= person.loginid %>"/>
+    <% } %>
+	<% if (editing === false) { %>
+		<div class="mb-3">
+			<label class="form-label" for="id">ID</label> 
+			<input class="form-control" type="text" name="loginid" placeholder="아이디를 입력해 주세요" value="<%= editing ? person.loginid : '' %>" style="width:300px;" />
+		</div>
+	<% } %>
+		<div class="mb-3">
+			<label class="form-label" for="id">PW</label> 
+			<input class="form-control" type="text" name="password" placeholder="패스워드를 입력해 주세요" value="<%= editing ? person.password : '' %>" style="width:300px;" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="id">이름</label> 
+			<input class="form-control" type="text" name="name" placeholder="이름을 입력해 주세요" value="<%= editing ? person.name : '' %>" style="width:300px;" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="id">주소</label> 
+			<input class="form-control" type="text" name="address" placeholder="주소를 입력해 주세요" value="<%= editing ? person.address : '' %>" style="width:300px;" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="id">전화번호</label> 
+			<input class="form-control" type="text" name="tel" placeholder="000-0000-0000" value="<%= editing ? person.tel : '' %>" style="width:300px;" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="id">생일</label> 
+			<input class="form-control" type="text" name="birth" placeholder="YYYYMMDD" value="<%= editing ? person.birth : '' %>" style="width:300px;" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="class">CLASS</label>
+			<select name="class" id="class">
+				<option value="MNG" <%= editing ? person.class === 'MNG' ? 'selected' : '' : cls === 'MNG' ? 'selected' : '' %>>관리자</option>
+				<option value="CST" <%= editing ? person.class === 'CST' ? 'selected' : '' : cls === 'CST' ? 'selected' : '' %>>고객</option>
+				<option value="CEO" <%= editing ? person.class === 'CEO' ? 'selected' : '' : cls === 'CEO' ? 'selected' : '' %>>경영자</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" for="grade">GRADE</label>
+			<select name="grade" id="grade">
+				<option value="S" <%= editing ? person.grade === 'S' ? 'selected' : '' : grade === 'S' ? 'selected' : '' %>>실버(가장 낮은 등급)</option>
+				<option value="G" <%= editing ? person.grade === 'G' ? 'selected' : '' : grade === 'G' ? 'selected' : '' %>>골드(중간 등급)</option>
+				<option value="D" <%= editing ? person.grade === 'D' ? 'selected' : '' : grade === 'D' ? 'selected' : '' %>>다이아몬드(가장 높은 등급)</option>
+			</select>
+		</div>
+		<button class="btn btn-outline-primary btn-sm" type="submit">입력</button>
+		&nbsp;&nbsp;&nbsp;
+		<a href="/person/view"><button class="btn btn-outline-primary btn-sm" type="button">고객 목록 돌아가기</button></a>
+
+	<% } else { %>  
+		<h2>회원가입</h2>
+		<form action="/auth/register_process" method="post" >
+			<div class="mb-3">
+				<label class="form-label" for="id">ID</label> 
+				<input class="form-control" type="text" name="loginid" placeholder="아이디를 입력해 주세요" style = "width:300px;" />
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">PW</label> 
+				<input class="form-control" type="text" name="password" placeholder="패스워드를 입력해 주세요" style = "width:300px;" />
+			</div>
+			<div class="mb-3" >
+				<label class="form-label" for="id">이름</label> 
+				<input class="form-control" type="text" name="name" placeholder="이름을 입력해 주세요" value="" style = "width:300px;" />
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">주소</label> 
+				<input class="form-control" type="text" name="address" placeholder="주소를 입력해 주세요" value="" style = "width:300px;" />
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">전화번호</label> 
+				<input class="form-control" type="text" name="tel" placeholder="000-0000-0000" value="" style = "width:300px;" />
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="id">생일</label> 
+				<input class="form-control" type="text" name="birth" placeholder="YYYYMMDD" value="" style = "width:300px;" />
+			</div>
+			
+			<button class="btn btn-outline-primary btn-sm" type="submit">입력</button>
+		<% } %>
+	</form>	
+</div>
